@@ -23,7 +23,7 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
       //конфигурируем лоудеры, для того чтобы обробатывать файлы, которые выходят за рамки js. например css, png и тд
       rules: buildLoaders(options),
     },
-    resolve: buildResolvers(),
+    resolve: buildResolvers(options),
     //где в коде произошла ошибка, чтобы было удобней искать в сборке из кучи разных файлов
     devtool: isDev ? 'inline-source-map' : undefined, //source map нет в production а в dev есть
     devServer: isDev ? buildDevServer(options) : undefined,

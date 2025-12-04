@@ -6,5 +6,6 @@ export function buildDevServer(options: BuildOptions): DevServerConfiguration {
     port: options.port,
     open: true,
     historyApiFallback: true, //чтобы при перезагрузки не основной страницы не происходила ошибка
+    hot: true,
   };
 }

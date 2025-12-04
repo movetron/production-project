@@ -4,8 +4,25 @@ import webpack from 'webpack';
 import { BuildOptions } from './types/config';
 
 export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
+  const svgLoader = {
+    test: /\.svg$/,
+    use: ['@svgr/webpack'],
+  };
+
+  const babelLoader = {
+    test: /\.(js|jsx|tsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env'],
+        plugins: [['i18next-extract', { locales: ['ru', 'en'], keyAsDefaultValue: true }]],
+      },
+    },
+  };
+
   const cssLoader = {
-    test: /\.s[ac]ss$/i,
+    test: /\.module\.s[ac]ss$/i,
     use: [
       // Creates `style` nodes from JS strings
       // если режим разработки dev используем style-loader если продкашн prod то MiniCssExtractPlugin
@@ -15,13 +32,24 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         loader: 'css-loader',
         options: {
           modules: {
-            auto: (resPath: string) => Boolean(resPath.includes('.module.')),
+            mode: 'local',
             //чтобы в dev сборе были нормальные названия классов стилей, а в продакшн автосгенерированные названия
             localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]', // 8 - это восемь символов
           },
+          esModule: false,
         },
       },
       // Compiles Sass to CSS
+      'sass-loader',
+    ],
+  };
+  // 2. Глобальные SCSS-файлы (без CSS Modules)
+  const scssGlobalRule = {
+    test: /\.s[ac]ss$/i,
+    exclude: /\.module\.s[ac]ss$/i, // исключаем CSS Modules
+    use: [
+      isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+      'css-loader', // ← без modules!
       'sass-loader',
     ],
   };
@@ -31,5 +59,13 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     //   include: path.resolve(__dirname, 'src'),
     exclude: /node_modules/,
   };
-  return [typescriptLoader, cssLoader];
+  const fileLoader = {
+    test: /\.(png|jpe?g|gif)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+      },
+    ],
+  };
+  return [fileLoader, svgLoader, babelLoader, typescriptLoader, cssLoader, scssGlobalRule];
 }
