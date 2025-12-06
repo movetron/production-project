@@ -2,9 +2,9 @@
     height: calc(
         100vh - var(--navbar-height)
     ); //должен располагаться на всю страницу, за исключении шапки навбара. От всей высоты браузера отнимаем высоту навбара
-    width: var(--sidebar-width);widthwidthwidth
-    background: var(--inverted-bg-color);backgroundbackground
-    position: relative;position
+    width: var(--sidebar-width);
+    background: var(--inverted-bg-color);
+    position: relative;
     transition: width 0.3s ease 0s;
 }
 
