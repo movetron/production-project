@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "esnext",
+    "module": "ESNext",
     "target": "es5",
     "skipLibCheck": true,
     "jsx": "react-jsx",
@@ -22,6 +22,5 @@
       "module": "CommonJS"
     }
   },
-
-  "include": ["src"]
+  "include": ["./config/jest/setupTests.ts"]
 }

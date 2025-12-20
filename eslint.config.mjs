@@ -10,6 +10,14 @@ export default defineConfig([
     plugins: { js },
     extends: ['js/recommended', 'plugin:i18next/recommended'],
     languageOptions: { globals: globals.browser },
+    overrides: [
+      {
+        files: ['**/src/**/*.test.{ts, tsx}'],
+        rules: {
+          'i188next/no-literal-string': 'off',
+        },
+      },
+    ],
   },
 
   tseslint.configs.recommended,
