@@ -6,6 +6,8 @@ import { LangSwicther } from 'widgets/LangSwitcher/ui/LangSwicther';
 
 interface SidebarProps {
   className?: string;
+  backgroundColor?: string;
+  children?: React.ReactNode;
 }
 
 export const Sidebar = ({ className }: SidebarProps) => {

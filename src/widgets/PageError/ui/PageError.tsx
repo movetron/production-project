@@ -5,6 +5,7 @@ import { Button } from 'shared/ui/Button/Button';
 
 interface PageErrorProps {
   className?: string;
+  backgroundColor?: string;
 }
 
 export const PageError = ({ className }: PageErrorProps) => {

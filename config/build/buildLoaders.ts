@@ -2,6 +2,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import { BuildOptions } from './types/config';
+import { buildCssLoader } from './loaders/buildCssLoaders';
 
 export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
   const svgLoader = {
@@ -21,28 +22,7 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     },
   };
 
-  const cssLoader = {
-    test: /\.module\.s[ac]ss$/i,
-    use: [
-      // Creates `style` nodes from JS strings
-      // если режим разработки dev используем style-loader если продкашн prod то MiniCssExtractPlugin
-      isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-      // Translates CSS into CommonJS
-      {
-        loader: 'css-loader',
-        options: {
-          modules: {
-            mode: 'local',
-            //чтобы в dev сборе были нормальные названия классов стилей, а в продакшн автосгенерированные названия
-            localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]', // 8 - это восемь символов
-          },
-          esModule: false,
-        },
-      },
-      // Compiles Sass to CSS
-      'sass-loader',
-    ],
-  };
+  const cssLoader = buildCssLoader(isDev);
   // 2. Глобальные SCSS-файлы (без CSS Modules)
   const scssGlobalRule = {
     test: /\.s[ac]ss$/i,
@@ -67,5 +47,5 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
       },
     ],
   };
-  return [fileLoader, svgLoader, babelLoader, typescriptLoader, cssLoader, scssGlobalRule];
+  return [fileLoader, svgLoader, babelLoader, typescriptLoader, ...cssLoader, scssGlobalRule];
 }

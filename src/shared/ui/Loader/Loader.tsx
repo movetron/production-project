@@ -3,6 +3,7 @@ import './Loader.scss';
 
 interface LoaderProps {
   className?: string;
+  backgroundColor?: string;
 }
 
 export const Loader = ({ className }: LoaderProps) => {
