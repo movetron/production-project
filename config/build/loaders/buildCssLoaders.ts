@@ -1,9 +1,7 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const srcPath = path.resolve(process.cwd(), 'src');
 
 export function buildCssLoader(isDev: boolean) {
   const moduleScss = {
@@ -24,7 +22,7 @@ export function buildCssLoader(isDev: boolean) {
         loader: 'sass-loader',
         options: {
           sassOptions: {
-            includePaths: [path.resolve(__dirname, '..', '..', '..', 'src')],
+            includePaths: [srcPath],
           },
         },
       },
@@ -41,7 +39,7 @@ export function buildCssLoader(isDev: boolean) {
         loader: 'sass-loader',
         options: {
           sassOptions: {
-            includePaths: [path.resolve(__dirname, '..', '..', '..', 'src')],
+            includePaths: [srcPath],
           },
         },
       },

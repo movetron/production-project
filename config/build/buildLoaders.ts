@@ -22,17 +22,6 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     },
   };
 
-  const cssLoader = buildCssLoader(isDev);
-  // 2. Глобальные SCSS-файлы (без CSS Modules)
-  const scssGlobalRule = {
-    test: /\.s[ac]ss$/i,
-    exclude: /\.module\.s[ac]ss$/i, // исключаем CSS Modules
-    use: [
-      isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-      'css-loader', // ← без modules!
-      'sass-loader',
-    ],
-  };
   const typescriptLoader = {
     test: /\.tsx?$/,
     use: 'ts-loader',
@@ -47,5 +36,7 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
       },
     ],
   };
-  return [fileLoader, svgLoader, babelLoader, typescriptLoader, ...cssLoader, scssGlobalRule];
+  const cssLoader = buildCssLoader(isDev);
+
+  return [fileLoader, svgLoader, babelLoader, typescriptLoader, ...cssLoader];
 }
