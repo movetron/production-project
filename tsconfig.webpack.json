@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2020",
+    "types": ["node"]
+  },
+  "include": ["config/**/*.ts", "webpack.config.ts"]
+}
