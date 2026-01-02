@@ -9,23 +9,27 @@ on:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [17.x]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: install modules
-        run: npm install
-      - name: build production project
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production
         run: npm run build:prod
-      - name: linting typescript
+
+      - name: Lint TS
         run: npm run lint:ts
-      - name: linting css
+
+      - name: Lint SCSS
         run: npm run lint:scss
-      - name: unit testing
+
+      - name: Unit tests
         run: npm run test:unit
