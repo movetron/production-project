@@ -1,46 +1,28 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+// import storybook from "eslint-plugin-storybook";
+
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import react from 'eslint-plugin-react';
-import i18next from 'eslint-plugin-i18next';
-import storybook from 'eslint-plugin-storybook';
+import pluginReact from 'eslint-plugin-react';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
-  // Base JS rules
-  js.configs.recommended,
-
-  // Common config for source files
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-
-    plugins: {
-      react,
-      i18next,
-      storybook,
-    },
-
-    languageOptions: {
-      globals: globals.browser,
-    },
-
-    rules: {
-      // i18n rules
-      ...i18next.configs.recommended.rules,
-    },
+    plugins: { js },
+    extends: ['js/recommended', 'plugin:i18next/recommended'],
+    languageOptions: { globals: globals.browser },
+    overrides: [
+      {
+        files: ['**/src/**/*.test.{ts, tsx}'],
+        rules: {
+          'i188next/no-literal-string': 'off',
+        },
+      },
+    ],
   },
 
-  // TypeScript rules
   tseslint.configs.recommended,
-
-  // React (flat config)
-  react.configs.flat.recommended,
-
-  // Overrides
-  {
-    files: ['**/src/**/*.test.{ts,tsx}'],
-    rules: {
-      'i18next/no-literal-string': 'off',
-    },
-  },
+  pluginReact.configs.flat.recommended,
 ]);
