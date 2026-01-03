@@ -36,4 +36,4 @@ jobs:
       - name: screenshot testing
         uses: chromaui/action@latest
         with:
-          projectToken: ${{ secrets.chpt_948dd42712e29c3 }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
