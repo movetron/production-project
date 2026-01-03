@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-        fetch-depth: 0
+          fetch-depth: 0
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -29,7 +29,7 @@ jobs:
         run: npm run build:prod
 
       - name: unit testing
-        run: npm run
+        run: npm run test
 
       - name: build storybook
         run: npm run build-storybook
