@@ -14,6 +14,7 @@ export function buildCssLoader(isDev: boolean) {
           modules: {
             mode: 'local',
             localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
+            exportLocalsConvention: 'asIs', // отключение camelCase для классов стилей
           },
           esModule: false,
         },

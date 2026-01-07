@@ -6,6 +6,14 @@ import { ButtonHTMLAttributes, FC } from 'react';
 export enum ThemeButton {
   CLEAR = 'clear', //кнопка без всего, просто текст, без рамки, без цвета заднего фона, чтобы сбросить стиль
   OUTLINE = 'outline',
+  BACKGROUND = 'background',
+  BACKGROUND_INVERTED = 'backgroundInverted',
+}
+
+export enum ButtonSize {
+  M = 'size_m',
+  L = 'size_l',
+  XL = 'size_xl',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,15 +22,20 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   primary?: boolean;
   backgroundColor?: string;
   children?: React.ReactNode;
+  square?: boolean;
+  size?: ButtonSize;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
-  const { className, children, theme, ...otherProps } = props;
+  const { className, children, theme, square, size = ButtonSize.M, ...otherProps } = props;
+
+  const mods: Record<string, boolean> = {
+    [cls.square]: square,
+  };
+  const additional = [cls[theme], cls[size], className];
+
   return (
-    <button
-      className={classNames(cls.button, {}, [className, theme && cls[theme]])}
-      {...otherProps}
-    >
+    <button type="button" className={classNames(cls.button, mods, additional)} {...otherProps}>
       {children}
     </button>
   );

@@ -1,9 +1,11 @@
 {
   "Тестовый пример": "Test example",
   "Перевод": "Translate",
-  "Главная страница": "Main page",
+  "Главная": "Main",
+  "О сайте": "About us",
   "Язык": "English",
   "Страница не найдена": "Page not found",
   "throw error": "throw error",
-  "Переключить": "Toogle"
+  "Переключить": "Toogle",
+  "Короткий язык": "En"
 }

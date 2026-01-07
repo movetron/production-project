@@ -4,9 +4,10 @@ import { Button, ThemeButton } from 'shared/ui/Button/Button';
 
 interface LangSwictherProps {
   className?: string;
+  short?: boolean;
 }
 
-export const LangSwicther = ({ className }: LangSwictherProps) => {
+export const LangSwicther = ({ className, short }: LangSwictherProps) => {
   const { t, i18n } = useTranslation();
 
   const toogle = () => {
@@ -14,7 +15,7 @@ export const LangSwicther = ({ className }: LangSwictherProps) => {
   };
   return (
     <Button className={classNames('', {}, [className])} theme={ThemeButton.CLEAR} onClick={toogle}>
-      {t('Язык')}
+      {t(short ? 'Короткий язык' : 'Язык')}
     </Button>
   );
 };
