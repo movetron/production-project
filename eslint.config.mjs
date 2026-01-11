@@ -6,21 +6,19 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
 import { defineConfig } from 'eslint/config';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    plugins: { js },
-    extends: ['js/recommended', 'plugin:i18next/recommended'],
+    plugins: { js, react: pluginReact, 'react-hooks': reactHooks },
     languageOptions: { globals: globals.browser },
-    overrides: [
-      {
-        files: ['**/src/**/*.test.{ts, tsx}'],
-        rules: {
-          'i188next/no-literal-string': 'off',
-        },
-      },
-    ],
+
+    rules: {
+      'i188next/no-literal-string': 'off',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'error',
+    },
   },
 
   tseslint.configs.recommended,

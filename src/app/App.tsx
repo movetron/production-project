@@ -1,5 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
-import './styles/index.scss';
+import React, { Suspense, useEffect, useState } from 'react';
 import { classNames } from 'shared/lib/className/classNames';
 import { useTheme } from './providers/ThemeProvider';
 import { AppRouter } from './providers/router';
@@ -13,6 +12,7 @@ const App = () => {
     <div className={classNames('app', {}, [theme])}>
       <Suspense fallback="">
         <Navbar />
+
         <div className="content-page">
           <Sidebar />
           <AppRouter />

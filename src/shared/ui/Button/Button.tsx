@@ -5,6 +5,7 @@ import { ButtonHTMLAttributes, FC } from 'react';
 
 export enum ThemeButton {
   CLEAR = 'clear', //кнопка без всего, просто текст, без рамки, без цвета заднего фона, чтобы сбросить стиль
+  CLEAR_INVERTED = 'clearInverted',
   OUTLINE = 'outline',
   BACKGROUND = 'background',
   BACKGROUND_INVERTED = 'backgroundInverted',

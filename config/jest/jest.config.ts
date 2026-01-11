@@ -22,7 +22,7 @@ const config: Config = {
   coveragePathIgnorePatterns: ['\\\\node_modules\\\\'],
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  moduleDirectories: ['node_modules'],
+  moduleDirectories: ['node_modules', 'src'],
   modulePaths: ['<rootDir>src'],
 
   // An array of file extensions your modules use
@@ -32,8 +32,14 @@ const config: Config = {
   rootDir: '../../',
   setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
   moduleNameMapper: {
+    '^.+\\.svg$': '<rootDir>/src/jestEmptyComponent.ts',
     '\\.s?css$': 'identity-obj-proxy',
-    '\\.svg': path.resolve(__dirname, 'jestEmptyComponent.tsx'),
+    '^shared/(.*)$': '<rootDir>/src/shared/$1',
+    '^entities/(.*)$': '<rootDir>/src/entities/$1',
+    '^features/(.*)$': '<rootDir>/src/features/$1',
+    '^widgets/(.*)$': '<rootDir>/src/widgets/$1',
+    '^pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
   },
 
   //регулярные выражения по которым находим файлы с тестами
